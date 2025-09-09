@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="120" viewBox="0 0 200 120" fill="none">
+<g opacity="0.9">
+<path d="M188 0L12 0C5.37258 0 0 5.37258 0 12L0 108C0 114.627 5.37258 120 12 120L188 120C194.627 120 200 114.627 200 108L200 12C200 5.37258 194.627 0 188 0Z">
+</path>
+<g mask="url(#mask-0490ed11-3121-4a82-8105-d5431613d3c2)" opacity="0.5">
+<path d="M126.512 1L217.5 1L137.988 86L47 86L126.512 1L126.512 1Z" fill-rule="evenodd"  fill="url(#linear_fill_16bfa272-d8d2-45b5-8378-769556985cfd)" >
+</path>
+</g>
+<g mask="url(#mask-0490ed11-3121-4a82-8105-d5431613d3c2)" opacity="0.5">
+<path d="M153.488 124L62.5 124L142.012 38.9999L233 38.9999L153.488 124L153.488 124Z"   fill="url(#linear_fill_251ff5a4-f1a8-4d4b-b4ad-5a2d91985abc)" >
+</path>
+</g>
+</g>
+<defs>
+<mask id="mask-0490ed11-3121-4a82-8105-d5431613d3c2" style="mask-type:alpha" maskUnits="userSpaceOnUse">
+<path fill="white" d="M188 0L12 0C5.37258 0 0 5.37258 0 12L0 108C0 114.627 5.37258 120 12 120L188 120C194.627 120 200 114.627 200 108L200 12C200 5.37258 194.627 0 188 0Z">
+</path>
+</mask>
+<linearGradient id="linear_fill_16bfa272-d8d2-45b5-8378-769556985cfd" x1="175.940673828125" y1="5.20001220703125" x2="132.25" y2="86" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#96E1FF"  />
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+</linearGradient>
+<linearGradient id="linear_fill_251ff5a4-f1a8-4d4b-b4ad-5a2d91985abc" x1="104.059326171875" y1="119.7999267578125" x2="147.75" y2="38.99993896484375" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#96E1FF"  />
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0" />
+</linearGradient>
+</defs>
+</svg>
