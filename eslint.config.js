@@ -29,5 +29,12 @@ export default defineConfig([
     rules: {
       'vue/multi-word-component-names': 'off',
     },
+    languageOptions: {
+      globals: {
+        ElMessage: 'readonly',
+        ElMessageBox: 'readonly',
+        ElLoading: 'readonly',
+      },
+    },
   },
 ])
