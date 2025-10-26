@@ -59,7 +59,9 @@ const webSocketStore = useWebSocketStore()
 const chatStore = useChatStore()
 
 webSocketStore.setChatSocket(
-  useWebSocket(`ws://101.126.153.13:8082/recovery/?Authorization=${userStore.token}`),
+  useWebSocket(
+    `ws://localhost:8082/recovery/?Authorization=${userStore.token || sessionStorage.getItem('token')}`,
+  ),
 )
 const chatSocket = webSocketStore.chatSocket
 
@@ -83,7 +85,7 @@ watch(
     if (chatSocket.message === null) return
     const data = JSON.parse(chatSocket.message)
     if (data.role) {
-      chatStore.updateAIMsg(data.content)
+      chatStore.updateAIMsg(data.content, userStore.userid)
     } else if (data.msgs) {
       // 更新离线期间聊天对象
       data.msgs.forEach(({ msg }) => {
@@ -128,7 +130,7 @@ watch(
 
 <style lang="less" scoped>
 .aside {
-  width: 15vw;
+  width: 15%;
   height: 100vh;
   border-right: 2px solid #dcdfe6;
   border-radius: 10px;

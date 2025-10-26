@@ -1,53 +1,53 @@
 import { useUserStore } from '@/stores'
-import AIPage from '@/views/layout/AIPage.vue'
-import ChatPage from '@/views/layout/patient/ChatPage.vue'
-import EditPage from '@/views/layout/me/EditPage.vue'
-import FallbackPage from '@/views/layout/me/FallbackPage.vue'
-import LayoutContainer from '@/views/layout/LayoutContainer.vue'
-import MedicalRecord from '@/views/layout/record/MedicalRecordPage.vue'
-import MePage from '@/views/layout/me/MePage.vue'
-import PatientPage from '@/views/layout/patient/PatientPage.vue'
-import LoginPage from '@/views/login/LoginPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HelpPage from '@/views/layout/me/HelpPage.vue'
-import AboutUsPage from '@/views/layout/me/AboutUsPage.vue'
-import LicensePage from '@/views/layout/me/LicensePage.vue'
-import DetailPage from '@/views/layout/record/DetailPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/login', component: LoginPage },
+    { path: '/login', component: () => import('@/views/login/LoginPage.vue') },
     {
       path: '/',
-      component: LayoutContainer,
-      redirect:'/patient',
+      component: () => import('@/views/layout/LayoutContainer.vue'),
+      redirect: '/patient',
       children: [
-        { path: '/ai', component: AIPage },
-        { path: '/chat', component: ChatPage },
+        { path: '/ai', component: () => import('@/views/layout/AIPage.vue') },
+        { path: '/chat', component: () => import('@/views/layout/patient/ChatPage.vue') },
         {
           path: '/record',
-          component: MedicalRecord,
-          children: [{ path: '/record/detail', component: DetailPage }],
+          component: () => import('@/views/layout/record/MedicalRecordPage.vue'),
+          children: [
+            {
+              path: '/record/detail',
+              component: () => import('@/views/layout/record/DetailPage.vue'),
+            },
+          ],
         },
         {
           path: '/me',
-          component: MePage,
+          component: () => import('@/views/layout/me/MePage.vue'),
           children: [
-            { path: '/me/edit', component: EditPage },
-            { path: '/me/fallback', component: FallbackPage },
-            { path: '/me/help', component: HelpPage },
-            { path: '/me/about', component: AboutUsPage },
-            { path: '/me/license', component: LicensePage },
+            { path: '/me/edit', component: () => import('@/views/layout/me/EditPage.vue') },
+            { path: '/me/fallback', component: () => import('@/views/layout/me/FallbackPage.vue') },
+            { path: '/me/help', component: () => import('@/views/layout/me/HelpPage.vue') },
+            { path: '/me/about', component: () => import('@/views/layout/me/AboutUsPage.vue') },
+            { path: '/me/license', component: () => import('@/views/layout/me/LicensePage.vue') },
           ],
         },
         {
           path: '/patient',
-          component: PatientPage,
-          children: [{ path: '/patient/chat', component: ChatPage }],
+          component: () => import('@/views/layout/patient/PatientPage.vue'),
+          children: [
+            {
+              path: '/patient/chat',
+              component: () => import('@/views/layout/patient/ChatPage.vue'),
+            },
+          ],
         },
       ],
     },
+    {
+      path:'/test',component:()=>import('@/views/test/Test.vue')
+    }
   ],
 })
 
@@ -61,7 +61,10 @@ router.beforeEach((to, from, next) => {
     next()
     return
   }
-  const token = userStore.token
+  let token = userStore.token
+  if (!token) {
+    token = sessionStorage.getItem('token')
+  }
   if (token) {
     next()
   } else {

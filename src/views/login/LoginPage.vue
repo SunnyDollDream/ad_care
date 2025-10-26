@@ -177,18 +177,18 @@ const sendVerify = async () => {
 const register = async () => {
   await form.value.validate()
   const {
-    data: { message, token },
+    data: { message },
   } = await userRegisterService(formModel.value)
-  userStore.setToken(token)
   ElMessage({
     message,
     type: 'success',
   })
   isRegister.value = false
-  router.push('/patient')
+  router.push('/login')
 }
 
 const login = async () => {
+
   await form.value.validate()
   const {
     data: {
@@ -196,19 +196,26 @@ const login = async () => {
       data: { token },
     },
   } = await userLoginService(formModel.value)
-  userStore.setToken(token)
+  if (rememberMe.value) {
+    userStore.setToken(token)
+    sessionStorage.removeItem('token')
+  } else {
+    sessionStorage.setItem('token', token)
+  }
   ElMessage({
     message,
     type: 'success',
   })
 
   router.push('/patient')
+  console.log('login');
+
 }
 </script>
 
 <style lang="less" scoped>
 .login {
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   display: flex;
   .left {

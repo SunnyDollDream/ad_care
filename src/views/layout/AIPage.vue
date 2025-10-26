@@ -2,12 +2,13 @@
   <div class="main">
     <div class="navbar">辅助诊断</div>
     <div class="list" ref="content">
-      <MsgItem v-for="msg in msgList" :key="msg.id" :msg="msg" :icon="icon"></MsgItem>
+      <!-- <MsgItem v-for="msg in msgList" :key="msg.id" :msg="msg" :icon="icon"></MsgItem>
       <MsgItem
         :msg="{ from_id: 0, to_id: userid }"
         :icon="icon"
         v-if="chatStore.aiMsg !== ''"
-      ></MsgItem>
+      ></MsgItem> -->
+      <ChatContainer :data="msgList" :height="height" :itemDefaultHeight="74"></ChatContainer>
     </div>
     <div class="bottom">
       <div class="input">
@@ -27,25 +28,24 @@
 </template>
 
 <script setup>
-import MsgItem from '@/components/MsgItem.vue'
+import ChatContainer from '@/components/ChatContainer.vue'
 import { useChatStore, useUserStore, useWebSocketStore } from '@/stores'
-import { ref, onMounted, onUpdated } from 'vue'
+import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
 
 const chatStore = useChatStore()
 const userStore = useUserStore()
 const chatSocket = useWebSocketStore().chatSocket
 
 const toId = 0
-const icon = 'https://image.acg.lol/file/2025/09/17/AI.png'
 const userid = userStore.userid
 
 const msg = ref('')
 const content = ref(null)
+const height = ref(0)
 const msgList = chatStore.aiHistoryMsg
 
 const submit = () => {
   if (chatStore.aiMsg !== '') {
-
     const aiMsgToUpdate = {
       from_id: 0,
       msg: chatStore.aiMsg,
@@ -69,8 +69,18 @@ const submit = () => {
   msg.value = ''
 }
 
+function updateHeight() {
+  height.value = content.value.clientHeight
+}
+
 onMounted(() => {
   content.value.scrollTop = content.value.scrollHeight
+  updateHeight()
+  window.addEventListener('resize', updateHeight)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateHeight)
 })
 
 onUpdated(() => {

@@ -18,8 +18,18 @@ export const useChatStore = defineStore(
       historyMsg.value.push(msg)
     }
 
-    const updateAIMsg = (val) => {
-      aiMsg.value += val
+    const updateAIMsg = (val, userid) => {
+      if (aiHistoryMsg.value[aiHistoryMsg.value.length - 1].from_id === 0) {
+        aiHistoryMsg.value[aiHistoryMsg.value.length - 1].msg += val
+      } else {
+        aiHistoryMsg.value.push({
+          from_id: 0,
+          to_id: userid,
+          msg: val,
+          time: new Date().toLocaleString('zh-CN').replace(/\//g, '-'),
+          id: aiHistoryMsg.value.length,
+        })
+      }
     }
 
     const clearAIMsg = () => {

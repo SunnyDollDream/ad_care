@@ -1,14 +1,9 @@
 <template>
-  <div>
+  <div style="height: 100%; width: 100%">
     <RouterView></RouterView>
   </div>
-
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>
